@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class EnglandOneActivity extends AppCompatActivity {
-    ImageView imageview;
-    Toolbar toolbar;
+    private ImageView imageview;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

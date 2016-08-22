@@ -1,6 +1,7 @@
 package com.nagot.mockapp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -11,9 +12,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
-    Toolbar toolbar;
-    TabLayout tabLayout;
-    ImageView imageview;
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ImageView imageview;
+    private int version;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +26,29 @@ public class MainActivity extends AppCompatActivity {
 
         initInstancesDrawer();
 
+        version = Build.VERSION.SDK_INT;
+
         imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        MainActivity.this,
-                        imageview,
-                        imageview.getTransitionName())
-                        .toBundle();
                 Intent intent = new Intent(MainActivity.this, EnglandOneActivity.class);
-                startActivity(intent, bundle);
+                if (version >= 21) {
+                    Bundle bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            MainActivity.this,
+                            imageview,
+                            imageview.getTransitionName())
+                            .toBundle();
+                    startActivity(intent, bundle);
+                } else {
+                    startActivity(intent);
+                }
             }
         });
 
 
-
-
     }
 
-    private void initInstancesDrawer(){
+    private void initInstancesDrawer() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
